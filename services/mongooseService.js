@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const init = () => {
-  const mongoURI = process.env.MONGO_DB_URI
+  const mongoURI = process.env.MONGODB_URI
   mongoose.connect(mongoURI, { autoIndex: false })
   mongoose.Promise = global.Promise
   const connection = mongoose.connection
