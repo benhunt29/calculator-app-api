@@ -2,7 +2,7 @@ const idx = require('idx')
 const Calculation = require('../models/Calculation')
 const calculationsService = require('../services/calculationsService')
 const pusherService = require('../services/pusherService')
-const { INVALID_CALCULATION_ERROR, CALCULATION_REQUIRED_ERROR, INTERNAL_ERROR } = require('../constants')
+const { INVALID_CALCULATION_ERROR, CALCULATION_REQUIRED_ERROR, INTERNAL_ERROR, PUSHER_CALCULATIONS_CHANNEL, PUSHER_CALCULATIONS_EVENT } = require('../constants')
 
 const getLatest10 = async (req, res) => {
   try {
@@ -19,11 +19,9 @@ const post = async (req, res) => {
   try {
     await Calculation.create({calculation})
     const latestCalculations = await calculationsService.getCalculations({sort: '-createdAt'})
-    console.log(latestCalculations)
-    pusherService.push({channel: 'calculations', event: 'calculations-update', payload: latestCalculations})
+    pusherService.push({channel: PUSHER_CALCULATIONS_CHANNEL, event: PUSHER_CALCULATIONS_EVENT, payload: latestCalculations})
     return res.sendStatus(201)
   } catch (err) {
-    console.log(err)
     const calculationErrorMsg = idx(err, _ => _.errors.calculation.message)
     if (calculationErrorMsg) {
       if (calculationErrorMsg === INVALID_CALCULATION_ERROR || calculationErrorMsg === CALCULATION_REQUIRED_ERROR) {

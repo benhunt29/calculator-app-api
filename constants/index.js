@@ -2,8 +2,13 @@ const INVALID_CALCULATION_ERROR = 'Invalid calculation.'
 const CALCULATION_REQUIRED_ERROR = 'Calculation required.'
 const INTERNAL_ERROR = 'A server error occured.'
 
+const PUSHER_CALCULATIONS_CHANNEL = 'calculations'
+const PUSHER_CALCULATIONS_EVENT = 'calculations-update'
+
 module.exports = {
   INVALID_CALCULATION_ERROR,
   CALCULATION_REQUIRED_ERROR,
-  INTERNAL_ERROR
+  INTERNAL_ERROR,
+  PUSHER_CALCULATIONS_CHANNEL,
+  PUSHER_CALCULATIONS_EVENT
 }

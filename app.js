@@ -2,11 +2,24 @@ const express = require('express')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 require('dotenv').config()
 
 const app = express()
-// view engine setup
+
+const allowedOrigins = [
+  'https://realtime-calculator-bhunt.herokuapp.com/'
+]
+app.use(cors({
+  origin: (origin, cb) => {
+    if (!origin || process.env.NODE_ENV === 'development') return cb(null, true)
+    if (allowedOrigins.indexOf(origin) === -1) {
+      return cb(new Error('CORS restricted for specified origin'), false)
+    }
+    return cb(null, true)
+  }
+}))
 
 const { init: initDB } = require('./services/mongooseService')
 initDB()
