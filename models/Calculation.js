@@ -9,7 +9,7 @@ const CalculationSchema = new Schema({
     trim: true,
     required: [true, CALCULATION_REQUIRED_ERROR],
     validate: {
-      validator: v => /([0-9.])+([*-=+/])([0-9.])+=([0-9.])+/g.test(v),
+      validator: v => /([-0-9.])+([*-+/])([-0-9.])+=([-0-9.])+/g.test(v),
       message: INVALID_CALCULATION_ERROR
     }
   }
