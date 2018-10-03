@@ -9,7 +9,7 @@ require('dotenv').config()
 const app = express()
 
 const allowedOrigins = [
-  'https://realtime-calculator-bhunt.herokuapp.com/'
+  'https://realtime-calculator-bhunt.herokuapp.com'
 ]
 app.use(cors({
   origin: (origin, cb) => {
